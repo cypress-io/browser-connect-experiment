@@ -124,3 +124,22 @@ not produce any output - seems there is some error getting swallowed when trying
 to launch the alias.
 
 ![Opening alias hangs](img/opening-alias.png)
+
+Enabling all debug messages shows the swallowed error
+
+```
+  cypress:server launching project in browser Google Chrome (alias) +12ms
+  cypress:server:events send error: {
+    Error: Browser: 'Google Chrome (alias)' was not found on your system.
+
+Available browsers found are: Google Chrome (alias), electron
+    at Object.get (/src/node_modules/cypress/dist/Cypress/resources
+    /app/packages/server/lib/errors.js:111:13)
+```
+
+Ok, need to:
+
+- show this error when trying to launch browser by alias
+- fix browser search by name
+- seems if there is both an alias and original `google-chrome` we lose
+  the second one, that is another problem.
