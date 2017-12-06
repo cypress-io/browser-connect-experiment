@@ -116,3 +116,11 @@ any useful information.
 cypress:launcher launching browser chrome to open http://localhost:35161/__/#/tests/integration/spec.js +3ms
 cypress:launcher spawning browser google-chrome with args http://localhost:35161/__/#/tests/integration/spec.js --test-type --ignore-certificate-errors --start-maximized --silent-debugger-extension-api --no-default-browser-check --no-first-run --noerrdialogs --enable-fixed-layout --disable-popup-blocking --disable-password-generation --disable-save-password-bubble --disable-single-click-autofill --disable-prompt-on-repos --disable-background-timer-throttling --disable-renderer-backgrounding --disable-renderer-throttling --disable-restore-session-state --disable-translate --disable-new-profile-management --disable-new-avatar-menu --allow-insecure-localhost --reduce-security-for-testing --enable-automation --disable-infobars --disable-blink-features=BlockCredentialedSubresources --metrics-recording-only --disable-prompt-on-repost --disable-hang-monitor --disable-sync --disable-background-networking --disable-web-resources --safebrowsing-disable-auto-update --safebrowsing-disable-download-protection --disable-client-side-phishing-detection --disable-component-update --disable-default-apps --load-extension=/.config/Cypress/cy/production/extensions/chrome,/src/node_modules/cypress/dist/Cypress/resources/app/packages/extension/theme --user-data-dir=/.config/Cypress/cy/production/browsers/chrome --proxy-server=http://localhost:35161
 ```
+
+Hmm, moved alias check to be first, so it detects `/usr/bin/chrome` shell scripts.
+When clicking on the test, just keeps spinning "Opening ..." but nothing happens.
+Because the local folder is mapped to the Docker container, I can edit `node_modules/cypress/dist/resource/ ...` JS files directly. More log messages did
+not produce any output - seems there is some error getting swallowed when trying
+to launch the alias.
+
+![Opening alias hangs](img/opening-alias.png)
