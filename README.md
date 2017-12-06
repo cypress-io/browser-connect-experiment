@@ -135,11 +135,20 @@ Enabling all debug messages shows the swallowed error
 Available browsers found are: Google Chrome (alias), electron
     at Object.get (/src/node_modules/cypress/dist/Cypress/resources
     /app/packages/server/lib/errors.js:111:13)
+
+ type: 'BROWSER_NOT_FOUND' } +6ms
+  cypress:server:events sending ipc data { type: 'launch:browser',
+  data:
+   { id: 0.24828404789513425,
+     __error:
+      { type: 'BROWSER_NOT_FOUND',
+        name: 'Error',
+        stack: 'Error: Browse
 ```
 
 Ok, need to:
 
-- show this error when trying to launch browser by alias
+- show this error `BROWSER_NOT_FOUND` when trying to launch browser by alias
 - fix browser search by name
 - seems if there is both an alias and original `google-chrome` we lose
   the second one, that is another problem.
