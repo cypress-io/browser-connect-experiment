@@ -152,3 +152,57 @@ Ok, need to:
 - fix browser search by name
 - seems if there is both an alias and original `google-chrome` we lose
   the second one, that is another problem.
+
+## Showing available browsers
+
+You can see all the browsers detected in the system by running `packages/launcher/index.js`
+
+```
+root@821ce58a7fb7:/src# node node_modules/cypress/dist/Cypress/resources/app/packages/launcher/index.js
+Launcher project exports
+{ [Function: init]
+  update: [Function: update],
+  detect: [Function: detectBrowsers] }
+âï¸ please use it as a module, not from CLI
+detected 1 browser
+[ { name: 'Google Chrome (alias)',
+    version: '62.0.3202.62',
+    path: 'chrome',
+    majorVersion: '62' } ]
+```
+
+Hmm, seems server code has "normalize" browser name code that just changes
+the detected browser name. For example `name` could be "Google Chrome (alias)"
+but it is *displayName*. Hmm.
+
+```
+getBrowser = (name) ->
+  switch name
+    ## normalize all the chrome* browsers
+    when "chrome", "chromium", "canary"
+      require("./chrome")
+    when "electron"
+      require("./electron")
+```
+
+Seems on Linux platform we get confused by `name` vs `displayName`. On Mac
+we get correct info
+
+```
+detected 3 browsers
+[ { name: 'chrome',
+    displayName: 'Chrome',
+    version: '62.0.3202.94',
+    path: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    majorVersion: '62' },
+  { name: 'chromium',
+    displayName: 'Chromium',
+    version: '60.0.3110.0',
+    path: '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    majorVersion: '60' },
+  { name: 'canary',
+    displayName: 'Canary',
+    version: '65.0.3286.0',
+    path: '/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary',
+    majorVersion: '65' } ]
+```
