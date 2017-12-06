@@ -1,0 +1,13 @@
+{
+  "name": "browser-connect-experiment",
+  "version": "1.0.0",
+  "description": "Debugging Docker on Mac Chrome to Cypress connection time out",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "docker build -t cypress-chrome-vnc ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
